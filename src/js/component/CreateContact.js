@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-
+import { Context } from "../store/appContext";
+import { useState } from "react";
 export const CreateContact = () => {
   const [fullname, setFullname] = useState ("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [address, setAddress] = useState("")
+  const {store, actions} = useContext(Context);
+  function addContact(e) {
+		e.preventDefault()
+		actions.addContacts(fullname, email, phone, address)
+		navigate("/")
+	}
   return (
     <div className="container">
       <div>
@@ -21,6 +31,8 @@ export const CreateContact = () => {
           <div className="form-group">
             <label>Email</label>
             <input
+              value = {email}
+              onChange= {(e) =>{setEmail(e.target.value)}}
               type="email"
               className="form-control"
               placeholder="Enter email"
@@ -29,6 +41,8 @@ export const CreateContact = () => {
           <div className="form-group">
             <label>Phone</label>
             <input
+              value= {phone}
+              onChange = {(e) =>{setPhone(e.target.value)}}
               type="phone"
               className="form-control"
               placeholder="Enter phone"
@@ -37,14 +51,18 @@ export const CreateContact = () => {
           <div className="form-group">
             <label>Address</label>
             <input
+              value = {address}
+              onChange = {(e) => {setAddress(e.target.value)}}
               type="text"
               className="form-control"
               placeholder="Enter address"
             />
           </div>
-          <button onClick= {() => {actions.createContact({
+          <button onClick= {() => {addContact({
             name: fullname,
-            email: "fix this" //create use state for email input and the others too. And "onchange"
+            email: email,
+            phone: phone,
+            address: address,
           })}}type="button" className="btn btn-primary form-control">
             save
           </button>
