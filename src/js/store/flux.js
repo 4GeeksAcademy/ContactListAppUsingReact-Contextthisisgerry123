@@ -1,43 +1,37 @@
+import { json } from "react-router";
+import { CreateContact } from "../component/CreateContact";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			contacts:undefined
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			getContacts: () => {
+				fetch("https://playground.4geeks.com/contact/agendas/gerardo/contacts")
+				.then(response => response.json())
+				.then(data => setStore({contacts:data.contacts}))
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+			
+			createContact: async(contact) => {
+				 let option = {
+					method: "POST",
+					headers: {"Content-type": "application/json"},
+					body: JSON.stringify(contact)
+				}
+				try {
+					let response = await fetch("https://playground.4geeks.com/contact/agendas/gerardo/contacts", option)
+					if (!response.ok){
+						return false						
+					}else{
+						getActions().getContacts() 
+						return true
+					}
+				}
+				catch(error) {console.log(error)}
+				
 			}
+
 		}
 	};
 };
