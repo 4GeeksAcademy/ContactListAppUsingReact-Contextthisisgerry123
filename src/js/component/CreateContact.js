@@ -44,7 +44,7 @@ export const CreateContact = () => {
           </div>
           <button onClick= {() => {actions.createContact({
             name: fullname,
-            email: 
+            email: "fix this" //create use state for email input and the others too. And "onchange"
           })}}type="button" className="btn btn-primary form-control">
             save
           </button>
