@@ -4,7 +4,7 @@ import { CreateContact } from "../component/CreateContact";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			contacts:undefined
+			contacts: [],
 		},
 		actions: {
 			getContacts: () => {
@@ -30,7 +30,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				catch(error) {console.log(error)}
 				
-			}
+			},
+
+			editContact: async (id, contact) => {
+				 let option = {
+					method: "PUT",
+					headers: {"Content-type": "application/json"},
+					body: JSON.stringify(contact)
+				}
+				try {
+					let response = await fetch(`https://playground.4geeks.com/contact/agendas/gerardo/contacts/${id}`, option);
+					if (!response.ok){
+						return false	
+						console.log("editing contact failed");					
+					}else{
+						getActions().getContacts() 
+						return true
+					}
+				}
+				catch(error) {console.log(error);}
+			},
 
 		}
 	};

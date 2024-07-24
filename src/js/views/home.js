@@ -12,7 +12,7 @@ export const Home = () => {
 		}
 	}, [store.contacts])
 	return(
-	<div className="text-center mt-5">
+	<div className="text-center mt-5"><h1>This is the contact card</h1>
 		{store.contacts && store.contacts.map( (contact) => {
 			return 	<ContactCard contact = {contact} key = {contact.id} />
 

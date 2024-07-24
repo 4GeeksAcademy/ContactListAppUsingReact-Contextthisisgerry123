@@ -6,8 +6,12 @@ export const ContactCard = ({contact}) => {
 
   return (
     <>
-    <div className="container border shadow-lg"> This is the contact card</div>
     <div className="container border shadow-lg"><h1> {contact.name} </h1></div>
+    <div className="container border shadow-lg"><h1> {contact.phone} </h1></div>
+    <div className="container border shadow-lg"><h1> {contact.email} </h1></div>
+    <div className="container border shadow-lg"><h1> {contact.address} </h1></div>
+    <Link className=" btn success" to={`/edit-contact/${contact.id}`}> Edit
+    </Link>
     </>
   );
 }

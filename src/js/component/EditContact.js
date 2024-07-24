@@ -1,22 +1,35 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-export const CreateContact = () => {
+
+
+export const EditContact = () => {
+  const { id } = useParams();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const { store, actions } = useContext(Context);
   let navigate = useNavigate();
-  const addContact = async (e) => {
+
+  useEffect(() => {
+    const contact = store.contacts.find((c) => c.id === parseInt(id));
+    if (contact) {
+      setName(contact.name);
+      setEmail(contact.email);
+      setPhone(contact.phone);
+      setAddress(contact.address);
+    }
+  }, [id, store.contacts]);
+
+  const handleEditContact = async (e) => {
+    e.preventDefault();
     try {
-      let response = await actions.createContact({
-        name: name,
-        email: email,
-        phone: phone,
-        address: address,
+      let response = await actions.editContact(id, {
+        name,
+        email,
+        phone,
+        address,
       });
       if (!response) {
         alert("an error occurred while adding contact");
@@ -27,10 +40,11 @@ export const CreateContact = () => {
       console.log(error);
     }
   };
+
   return (
     <div className="container">
       <div>
-        <h1 className="text-center mt-5">Add a new contact</h1>
+        <h1 className="text-center mt-5">Edit Contact</h1>
         <div>
           <div className="form-group">
             <label>Full Name</label>
@@ -81,9 +95,7 @@ export const CreateContact = () => {
             />
           </div>
           <button
-            onClick={() => {
-              addContact();
-            }}
+            onClick={handleEditContact}
             type="button"
             className="btn btn-primary form-control"
           >
