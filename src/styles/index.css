@@ -1,3 +1,64 @@
 /* 
     General Styles
 */
+.contact-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 16px;
+}
+
+.contact-info {
+  flex-grow: 1;
+}
+
+.contact-info h2 {
+  margin: 0 0 8px;
+}
+
+.contact-info p {
+  margin: 4px 0;
+  color: #666;
+}
+
+.contact-info i {
+  margin-right: 8px;
+  color: #888;
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+}
+
+.contact-actions .btn {
+  /* background: none; */
+  border: none;
+  padding: 8px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.contact-actions .btn-edit {
+  color: #007bff;
+}
+
+.contact-actions .btn-delete {
+  color: #dc3545;
+}
+
+.contact-actions .btn:hover {
+  opacity: 0.8;
+}

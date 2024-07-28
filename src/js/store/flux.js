@@ -51,6 +51,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				catch(error) {console.log(error);}
 			},
 
+			deleteContact: async (id) => {
+				let option = {
+				   method: "DELETE",
+				   headers: {"Content-type": "application/json"},
+			   }
+			   try {
+				   let response = await fetch(`https://playground.4geeks.com/contact/agendas/gerardo/contacts/${id}`, option);
+				   if (!response.ok){
+					   return false	
+					   console.log("deleting contact failed");					
+				   }else{
+					   getActions().getContacts() 
+					   return true
+				   }
+			   }
+			   catch(error) {console.log(error);}
+		   },
+
 		}
 	};
 };
